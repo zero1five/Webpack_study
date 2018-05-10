@@ -1,35 +1,21 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-let MiniCssExtractPlugin = require('mini-css-extract-plugin');
-let webpack = require('webpack');
+const path = require('path')
 
 module.exports = {
-    entry: './src/app.js',    // 入口文件
+    entry: './src/app.js',
     output: {
-        filename: 'bundle.js',      // 打包后的文件名称
-        path: path.resolve('dist')  // 打包后的目录，必须是绝对路径
+        filename: 'bundle.js',
+        path: path.resolve(__dirname, 'dist')
     },
     module: {
         rules: [
             {
-                test: /\.css$/,
-                use: ['style-loader', MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
-            },
-        ]  
+                test: /\.js$/,
+                use: 'babel-loader'
+            }
+        ]
     },
     plugins: [
-        new HtmlWebpackPlugin({
-            template: './src/index.html'
-        }),
-        new MiniCssExtractPlugin({
-            filename: 'css/style.css'   // 指定打包后的css
-        }),
-        new webpack.HotModuleReplacementPlugin()
+        
     ],
-    devServer: {
-        contentBase: './dist',
-        hot: true,
-    },
-    mode: "development"
+    mode: 'production'
 }
-
